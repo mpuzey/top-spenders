@@ -5,6 +5,7 @@ import (
 	"io"
 )
 
+// RecordProcessor is an interface that defines a method to process a single record from a CSV file
 type RecordProcessor interface {
 	Process(record []string) error
 }

@@ -18,6 +18,7 @@ type Transaction struct {
 	GBPAmount float64 // normalized amount in GBP
 }
 
+// NormalizeToGBP converts all gold amounts to pounds for comparisons between GGM/ Gold transactions and GBP txns
 func (t *Transaction) NormalizeToGBP() float64 {
 	if t.FromCurrency == "GBP" {
 		return t.Amount

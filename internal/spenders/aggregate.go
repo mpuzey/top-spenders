@@ -6,22 +6,20 @@ import (
 	"top-spenders/internal/transactions"
 )
 
+// Transaction is an alias which resolves import issues with the transactions type
 type Transaction = transactions.Transaction
 
 // AggregateTopSpenders gets the top five motnhly spenders in the transaction list
 func AggregateTopSpenders(transactions []*Transaction, targetMonth time.Month, targetYear int) []*Spender {
-	// Step 2: Filter for card spends in target month
 	cardSpends := filterCardSpends(transactions, targetMonth, targetYear)
 
-	// Step 3: Normalize currencies to GBP
 	for _, tx := range cardSpends {
 		tx.GBPAmount = tx.NormalizeToGBP()
 	}
 
-	// Step 4: Aggregate by user (email)
 	spenders := aggregateByUser(cardSpends)
 
-	// Step 5: Sort by total spend (descending)
+	// Sort by total spend (descending)
 	sort.Slice(spenders, func(i, j int) bool {
 		return spenders[i].TotalSpent > spenders[j].TotalSpent
 	})
@@ -36,7 +34,6 @@ func AggregateTopSpenders(transactions []*Transaction, targetMonth time.Month, t
 	return topSpenders
 }
 
-// Step 2: Filter for card spends in target month
 func filterCardSpends(transactions []*Transaction, targetMonth time.Month, targetYear int) []*Transaction {
 	var cardSpends []*Transaction
 
@@ -53,7 +50,6 @@ func filterCardSpends(transactions []*Transaction, targetMonth time.Month, targe
 	return cardSpends
 }
 
-// Step 4: Aggregate transactions by user (email)
 func aggregateByUser(cardSpends []*Transaction) []*Spender {
 	userSpends := make(map[string]*Spender)
 
@@ -91,7 +87,7 @@ func aggregateByUser(cardSpends []*Transaction) []*Spender {
 	for _, spender := range userSpends {
 		spender.AverageSpend = spender.TotalSpent / float64(spender.TransactionCount)
 
-		// Calculate unique spending days
+		// Calculate unique spending days - u
 		spender.SpendingDays = calculateSpendingDays(cardSpends, spender.Email)
 
 		spenders = append(spenders, spender)
@@ -100,7 +96,7 @@ func aggregateByUser(cardSpends []*Transaction) []*Spender {
 	return spenders
 }
 
-// Helper function to calculate unique spending days for a user
+// Helper function to calculate unique spending days for a user, used email address as the unique identifier
 func calculateSpendingDays(transactions []*Transaction, email string) int {
 	uniqueDays := make(map[string]bool)
 

@@ -12,6 +12,7 @@ type MockProcessor struct {
 	mu               sync.Mutex
 }
 
+// Process appends the record to the records list on the mock processor
 func (m *MockProcessor) Process(record []string) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -20,10 +21,6 @@ func (m *MockProcessor) Process(record []string) error {
 		return errors.New("processing error")
 	}
 
-	// // Copy to avoid race conditions
-	// recordCopy := make([]string, len(record))
-	// copy(recordCopy, record)
-	// m.ProcessedRecords = append(m.ProcessedRecords, recordCopy)
 	m.ProcessedRecords = append(m.ProcessedRecords, record)
 	return nil
 }

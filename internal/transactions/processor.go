@@ -11,12 +11,13 @@ var (
 	ErrValidation = fmt.Errorf("validation error")
 )
 
+// TransactionsProcessor stores a slice of parsed transactions and a mutex for safety across goroutines during parsing
 type TransactionsProcessor struct {
 	Transactions []Transaction
 	mu           sync.Mutex
 }
 
-// Process parses a single transaction record and adds it to the Transactions slice on the processor
+// Process parses a single transaction record and adds it to the Transactions slice on the TransactionsProcessor
 func (m *TransactionsProcessor) Process(record []string) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
