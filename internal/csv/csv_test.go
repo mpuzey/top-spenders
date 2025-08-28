@@ -42,7 +42,7 @@ func TestProcessCSV(t *testing.T) {
 			reader := strings.NewReader(tt.csvContent)
 			processor := &mock.MockProcessor{}
 
-			err := csv.ProcessCSV(reader, processor)
+			err := csv.ReadCSV(reader, processor)
 
 			if tt.expectError && err == nil {
 				t.Error("expected error but got none")

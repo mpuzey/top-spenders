@@ -35,7 +35,7 @@ func TestProcessCSV_Integration(t *testing.T) {
 	defer file.Close()
 
 	processor := &mock.MockProcessor{}
-	err = csv.ProcessCSV(file, processor)
+	err = csv.ReadCSV(file, processor)
 
 	if err != nil {
 

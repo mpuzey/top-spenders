@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"top-spenders/internal/csv"
+	"top-spenders/internal/csv/transactions"
 )
 
 func main() {
@@ -20,8 +21,8 @@ func main() {
 	}
 	defer file.Close()
 
-	processor := &csv.TransactionsCSVProcessor{}
-	err = csv.ProcessCSV(file, processor)
+	processor := &transactions.TransactionsProcessor{}
+	err = csv.ReadCSV(file, processor)
 	if err != nil {
 		fmt.Printf("Error processing file(/s) %v", err)
 	}
