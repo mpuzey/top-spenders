@@ -44,6 +44,11 @@ func TestProcess_ValidRecord(t *testing.T) {
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
+
+	if len(processor.Transactions) != 1 {
+		t.Errorf("expected 1 transaction, got %d", len(processor.Transactions))
+	}
+
 	transaction := processor.Transactions[0]
 	if !reflect.DeepEqual(transaction, expectedTransaction) {
 		t.Errorf("transaction mismatch")
@@ -103,6 +108,7 @@ func TestProcess_GGMToGBPConversion(t *testing.T) {
 		ToCurrency:   "GGM",
 		Rate:         47.0892,
 		Date:         date,
+		GBPAmount:    41.8411403, // Same as Amount since FromCurrency is GBP
 	}
 
 	processor := &transactions.TransactionsProcessor{}
@@ -145,6 +151,7 @@ func TestProcess_GGMFromGBPConversion(t *testing.T) {
 		ToCurrency:   "GBP",
 		Rate:         47.7478,
 		Date:         date,
+		GBPAmount:    1.5103011 / 47.7478, // Convert from GGM to GBP
 	}
 
 	processor := &transactions.TransactionsProcessor{}
@@ -187,6 +194,7 @@ func TestProcess_SELLGOLDTransaction(t *testing.T) {
 		ToCurrency:   "GBP",
 		Rate:         47.7494,
 		Date:         date,
+		GBPAmount:    0.9928468 / 47.7494, // Convert from GGM to GBP
 	}
 
 	processor := &transactions.TransactionsProcessor{}
@@ -229,6 +237,7 @@ func TestProcess_BUYGOLDTransaction(t *testing.T) {
 		ToCurrency:   "GGM",
 		Rate:         47.7555,
 		Date:         date,
+		GBPAmount:    75.5180979, // Same as Amount since FromCurrency is GBP
 	}
 
 	processor := &transactions.TransactionsProcessor{}

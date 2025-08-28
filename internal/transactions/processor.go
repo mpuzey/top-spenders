@@ -63,6 +63,9 @@ func (m *TransactionsProcessor) parse(record []string) error {
 		Date:         date,
 	}
 
+	// Calculate GBP amount
+	transaction.GBPAmount = transaction.NormalizeToGBP()
+
 	m.Transactions = append(m.Transactions, transaction)
 	return nil
 }
