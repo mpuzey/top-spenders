@@ -1,10 +1,10 @@
-package main
+package csv_test
 
 import (
-	"errors"
 	"strings"
-	"sync"
 	"testing"
+	"top-spenders/internal/csv"
+	"top-spenders/internal/csv/mock"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -40,9 +40,9 @@ func TestProcessCSV(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			reader := strings.NewReader(tt.csvContent)
-			processor := &MockProcessor{}
+			processor := &mock.MockProcessor{}
 
-			err := ProcessCSV(reader, processor)
+			err := csv.ProcessCSV(reader, processor)
 
 			if tt.expectError && err == nil {
 				t.Error("expected error but got none")
@@ -56,27 +56,4 @@ func TestProcessCSV(t *testing.T) {
 			}
 		})
 	}
-}
-
-// Mock processor for testing
-type MockProcessor struct {
-	ProcessedRecords [][]string
-	ShouldError      bool
-	mu               sync.Mutex
-}
-
-func (m *MockProcessor) Process(record []string) error {
-	m.mu.Lock()
-	defer m.mu.Unlock()
-
-	if m.ShouldError {
-		return errors.New("processing error")
-	}
-
-	// // Copy to avoid race conditions
-	// recordCopy := make([]string, len(record))
-	// copy(recordCopy, record)
-	// m.ProcessedRecords = append(m.ProcessedRecords, recordCopy)
-	m.ProcessedRecords = append(m.ProcessedRecords, record)
-	return nil
 }

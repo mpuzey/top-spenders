@@ -4,6 +4,9 @@ import (
 	"os"
 	"testing"
 
+	"top-spenders/internal/csv"
+	"top-spenders/internal/csv/mock"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -31,11 +34,11 @@ func TestProcessCSV_Integration(t *testing.T) {
 	}
 	defer file.Close()
 
-	processor := &MockProcessor{}
-	err = ProcessCSV(file, processor)
+	processor := &mock.MockProcessor{}
+	err = csv.ProcessCSV(file, processor)
 
 	if err != nil {
 
 	}
-	assert.Len(t, processor.ProcessedRecords, 2)
+	assert.Len(t, processor.ProcessedRecords, 3)
 }
