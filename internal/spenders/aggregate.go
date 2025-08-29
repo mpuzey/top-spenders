@@ -3,7 +3,8 @@ package spenders
 import (
 	"sort"
 	"time"
-	"top-spenders/internal/transactions"
+
+	"github.com/matt/top-spenders/internal/transactions"
 )
 
 // Transaction is an alias which resolves import issues with the transactions type

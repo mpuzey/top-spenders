@@ -3,8 +3,9 @@ package csv_test
 import (
 	"strings"
 	"testing"
-	"top-spenders/internal/csv"
-	"top-spenders/internal/csv/mock"
+
+	"github.com/matt/top-spenders/internal/csv"
+	"github.com/matt/top-spenders/internal/csv/mock"
 
 	"github.com/stretchr/testify/assert"
 )

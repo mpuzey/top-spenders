@@ -4,7 +4,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
-	"top-spenders/internal/transactions"
+
+	"github.com/matt/top-spenders/internal/transactions"
 )
 
 func TestProcess_ValidRecord(t *testing.T) {

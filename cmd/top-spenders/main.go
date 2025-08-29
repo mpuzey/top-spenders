@@ -6,9 +6,9 @@ import (
 	"os"
 	"time"
 
-	"top-spenders/internal/csv"
-	"top-spenders/internal/spenders"
-	"top-spenders/internal/transactions"
+	"github.com/matt/top-spenders/internal/csv"
+	"github.com/matt/top-spenders/internal/spenders"
+	"github.com/matt/top-spenders/internal/transactions"
 )
 
 type Transaction = transactions.Transaction

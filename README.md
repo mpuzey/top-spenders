@@ -20,7 +20,15 @@ Rank 4: Vivek Talley (vivek.talley@mailinator.com) - £87.01 total spent
 Rank 5: Bronte Parkes (bronte.parkes@mailinator.com) - £85.91 total spent
 ```
 
+## Running the tests
+
+At project root run the following go test command:
+```
+ go test ./...
+```
+
 ## Reading the docs
+At project root run the pkgsite command:
 
 ```
 go run golang.org/x/pkgsite/cmd/pkgsite@latest -http=:6060 .
