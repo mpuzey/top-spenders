@@ -1,4 +1,4 @@
-module top-spenders
+module github.com/matt/top-spenders	
 
 go 1.25.0
 

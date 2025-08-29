@@ -22,13 +22,9 @@ Rank 5: Bronte Parkes (bronte.parkes@mailinator.com) - £85.91 total spent
 
 ## Reading the docs
 
-First install godoc
 ```
-go install golang.org/x/tools/cmd/godoc@latest
+go run golang.org/x/pkgsite/cmd/pkgsite@latest -http=:6060 .
 ```
 
-Run godoc across the project
-
-```
-godoc -http=:6060
-```
+Browse to:
+http://localhost:6060/github.com/matt/top-spenders
