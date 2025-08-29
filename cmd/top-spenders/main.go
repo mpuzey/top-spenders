@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"time"
@@ -12,15 +13,19 @@ import (
 
 type Transaction = transactions.Transaction
 
-func main() {
-	csvName := os.Getenv("CSV_FILE")
-	if len(csvName) == 0 {
-		csvName = "sample-transactions.csv"
-	}
+type Config struct {
+	Month    time.Month
+	Year     int
+	FileName string
+}
 
-	file, err := os.Open(csvName)
+func main() {
+
+	config := parseFlags()
+
+	file, err := os.Open(config.FileName)
 	if err != nil {
-		fmt.Printf("Error opening CSV file \"%s\" :%s", csvName, err)
+		fmt.Printf("Error opening CSV file \"%s\" :%s", config.FileName, err)
 		return
 	}
 	defer file.Close()
@@ -33,8 +38,8 @@ func main() {
 
 	txnList := processor.Transactions
 
-	targetMonth := time.January
-	targetYear := 2020
+	targetMonth := config.Month
+	targetYear := config.Year
 	// Convert slice of values to slice of pointers
 	var transactionPtrs []*Transaction
 	for i := range txnList {
@@ -44,5 +49,25 @@ func main() {
 	for i, spender := range topSpenders {
 		fmt.Printf("Rank %d: %s %s (%s) - £%.2f total spent\n",
 			i+1, spender.FirstName, spender.LastName, spender.Email, spender.TotalSpent)
+	}
+}
+
+func parseFlags() *Config {
+	monthPtr := flag.Int("month", 1, "an int representing the month e.g. 1 (January), 11 (Novemeber)")
+	yearPtr := flag.Int("year", 2020, "an int")
+	fileNamePtr := flag.String("file", "sample-transactions.csv", "a string")
+
+	var svar string
+	flag.StringVar(&svar, "svar", "bar", "a string var")
+
+	flag.Parse()
+
+	fmt.Println("month:", *monthPtr)
+	fmt.Println("year:", *yearPtr)
+	fmt.Println("filename:", *fileNamePtr)
+	return &Config{
+		Month:    time.Month(*monthPtr),
+		Year:     *yearPtr,
+		FileName: *fileNamePtr,
 	}
 }
