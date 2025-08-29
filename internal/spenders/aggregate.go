@@ -10,7 +10,7 @@ import (
 // Transaction is an alias which resolves import issues with the transactions type
 type Transaction = transactions.Transaction
 
-// AggregateTopSpenders gets the top five motnhly spenders in the transaction list
+// AggregateTopSpenders gets the top five monthly spenders in the transaction list
 func AggregateTopSpenders(transactions []*Transaction, targetMonth time.Month, targetYear int) []*Spender {
 	cardSpends := filterCardSpends(transactions, targetMonth, targetYear)
 
@@ -70,7 +70,6 @@ func aggregateByUser(cardSpends []*Transaction) []*Spender {
 				spender.LastTransaction = tx.Date
 			}
 		} else {
-			// Create new spender
 			userSpends[email] = &Spender{
 				FirstName:        tx.FirstName,
 				LastName:         tx.LastName,
