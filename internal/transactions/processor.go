@@ -13,7 +13,7 @@ var (
 
 // TransactionsProcessor stores a slice of parsed transactions and a mutex for safety across goroutines during parsing
 type TransactionsProcessor struct {
-	Transactions []Transaction
+	Transactions []*Transaction
 	mu           sync.Mutex
 }
 
@@ -67,6 +67,6 @@ func (m *TransactionsProcessor) parse(record []string) error {
 	// Calculate GBP amount
 	transaction.GBPAmount = transaction.NormalizeToGBP()
 
-	m.Transactions = append(m.Transactions, transaction)
+	m.Transactions = append(m.Transactions, &transaction)
 	return nil
 }

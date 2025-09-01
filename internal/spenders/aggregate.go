@@ -96,7 +96,7 @@ func aggregateByUser(cardSpends []*Transaction) []*Spender {
 	return spenders
 }
 
-// Helper function to calculate unique spending days for a user, used email address as the unique identifier
+// Helper function to calculate unique spending days for a user, using email address as the unique identifier
 func calculateSpendingDays(transactions []*Transaction, email string) int {
 	uniqueDays := make(map[string]bool)
 
