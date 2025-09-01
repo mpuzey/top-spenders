@@ -14,10 +14,6 @@ type Transaction = transactions.Transaction
 func AggregateTopSpenders(transactions []*Transaction, targetMonth time.Month, targetYear int) []*Spender {
 	cardSpends := filterCardSpends(transactions, targetMonth, targetYear)
 
-	for _, tx := range cardSpends {
-		tx.GBPAmount = tx.NormalizeToGBP()
-	}
-
 	spenders := aggregateByUser(cardSpends)
 
 	// Sort by total spend (descending)

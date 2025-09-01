@@ -14,7 +14,7 @@ func TestProcessCSV_Integration(t *testing.T) {
 	// Create temp file
 	tmpFile, err := os.CreateTemp("", "test*.csv")
 	if err != nil {
-
+		t.Errorf("Error opening temp file :%s", err)
 	}
 
 	defer os.Remove(tmpFile.Name())
@@ -38,7 +38,7 @@ func TestProcessCSV_Integration(t *testing.T) {
 	err = csv.ReadCSV(file, processor)
 
 	if err != nil {
-
+		t.Errorf("Error processing temp file :%s", err)
 	}
 	assert.Len(t, processor.ProcessedRecords, 3)
 }
