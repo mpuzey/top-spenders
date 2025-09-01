@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/matt/top-spenders/internal/csv"
+	csv "github.com/matt/top-spenders/internal/reader"
 	"github.com/matt/top-spenders/internal/spenders"
 	"github.com/matt/top-spenders/internal/transactions"
 )

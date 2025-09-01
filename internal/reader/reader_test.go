@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/matt/top-spenders/internal/csv"
-	"github.com/matt/top-spenders/internal/csv/mock"
+	csv "github.com/matt/top-spenders/internal/reader"
+	"github.com/matt/top-spenders/internal/reader/mock"
 
 	"github.com/stretchr/testify/assert"
 )
