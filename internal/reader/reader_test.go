@@ -1,10 +1,10 @@
-package csv_test
+package reader_test
 
 import (
 	"strings"
 	"testing"
 
-	csv "github.com/matt/top-spenders/internal/reader"
+	readerpkg "github.com/matt/top-spenders/internal/reader"
 	"github.com/matt/top-spenders/internal/reader/mock"
 
 	"github.com/stretchr/testify/assert"
@@ -43,7 +43,7 @@ func TestProcessCSV(t *testing.T) {
 			reader := strings.NewReader(tt.csvContent)
 			processor := &mock.MockProcessor{}
 
-			err := csv.ReadCSV(reader, processor)
+			err := readerpkg.ReadCSV(reader, processor)
 
 			if tt.expectError && err == nil {
 				t.Error("expected error but got none")
